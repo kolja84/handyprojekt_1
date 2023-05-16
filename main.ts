@@ -11,8 +11,10 @@ radio.onReceivedString(function (receivedString) {
 let Programm_Musik_Song = 0
 let Programm_Nachrichten_Kanal_2 = 0
 let Programm_Nachrichten_Kanal_1 = 0
+let Programm_Zufallszahl_MaximaleZahl = 0
 let Programm_MusikPlay_Pause = 0
 let Standby = 0
+let Programm_Zufallszahlengenartor_1 = 0
 let Programm_Musik = 0
 let Programm_Taschenrechner = 0
 let Messenger_Variable_1 = 0
@@ -97,6 +99,27 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
+    if (Homescreen_1 == 4) {
+        basic.showLeds(`
+            . . # . .
+            . # # . .
+            . . # . .
+            . . # . .
+            . # # # .
+            `)
+        if (pins.digitalReadPin(DigitalPin.P1) == 1) {
+            Homescreen_1 = 0
+            Programm_Zufallszahlengenartor_1 = 1
+        }
+        if (input.buttonIsPressed(Button.A)) {
+            Homescreen_1 += -1
+        }
+        if (input.buttonIsPressed(Button.B)) {
+            Homescreen_1 += 1
+        }
+    }
+})
+basic.forever(function () {
     if (input.buttonIsPressed(Button.AB) && Homescreen_1 == 0) {
         Homescreen_1 = 1
         music.playTone(147, music.beat(BeatFraction.Whole))
@@ -152,6 +175,12 @@ basic.forever(function () {
                 music.stopAllSounds()
             }
         }
+    }
+})
+basic.forever(function () {
+    if (Programm_Zufallszahlengenartor_1 == 1) {
+        basic.showNumber(randint(0, Programm_Zufallszahl_MaximaleZahl))
+        Programm_Zufallszahl_MaximaleZahl = pins.analogReadPin(AnalogPin.P2)
     }
 })
 /**
