@@ -97,6 +97,9 @@ basic.forever(function () {
     if (input.buttonIsPressed(Button.AB) && Homescreen_1 == 0) {
         Homescreen_1 = 1
         music.playTone(147, music.beat(BeatFraction.Whole))
+        Messenger_Variable_1 = 0
+        Programm_Musik = 0
+        Programm_Taschenrechner = 0
     }
     if (Homescreen_1 > 0) {
         Messenger_Variable_1 = 0
