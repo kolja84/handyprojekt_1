@@ -2,7 +2,8 @@
     "name": "HandyProjekt_1",
     "description": "",
     "dependencies": {
-        "core": "*"
+        "core": "*",
+        "radio-broadcast": "*"
     },
     "files": [
         "main.blocks",

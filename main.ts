@@ -1,13 +1,16 @@
 /**
  * Homescreen
  */
-/**
- * Programm:e
- */
 input.onPinTouchEvent(TouchPin.P1, input.buttonEventDown(), function () {
     music.playTone(659, music.beat(BeatFraction.Whole))
 })
+radio.onReceivedString(function (receivedString) {
+    let recivedstring = 0
+    basic.showString("" + (recivedstring))
+})
 let Programm_Musik_Song = 0
+let Programm_Nachrichten_Kanal_2 = 0
+let Programm_Nachrichten_Kanal_1 = 0
 let Programm_MusikPlay_Pause = 0
 let Standby = 0
 let Programm_Musik = 0
@@ -151,15 +154,22 @@ basic.forever(function () {
         }
     }
 })
+/**
+ * Programm:e
+ */
 basic.forever(function () {
     if (Messenger_Variable_1 == 1) {
-        basic.showLeds(`
-            # # . # #
-            # . . . #
-            # . . . #
-            # . . . #
-            # # . # #
-            `)
+        radio.setGroup(Programm_Nachrichten_Kanal_1)
+    }
+})
+basic.forever(function () {
+    if (Messenger_Variable_1 == 1) {
+        Programm_Nachrichten_Kanal_1 = Math.map(pins.analogReadPin(AnalogPin.P2), 0, 1023, 0, 4)
+        basic.pause(500)
+        Programm_Nachrichten_Kanal_2 = Programm_Nachrichten_Kanal_1
+        if (Programm_Nachrichten_Kanal_1 != Programm_Nachrichten_Kanal_2) {
+            basic.showNumber(Programm_Nachrichten_Kanal_1)
+        }
     }
 })
 basic.forever(function () {
@@ -195,5 +205,16 @@ basic.forever(function () {
             music.playMelody("E B C5 A G D F E ", 118)
             music.playMelody("C G F B D A C C5 ", 120)
         }
+    }
+})
+basic.forever(function () {
+    if (Messenger_Variable_1 == 1) {
+        basic.showLeds(`
+            # . . . #
+            . . . . .
+            . . . . .
+            . . . . .
+            # . . . #
+            `)
     }
 })
