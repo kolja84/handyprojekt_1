@@ -241,7 +241,7 @@ basic.forever(function () {
         if (input.buttonIsPressed(Button.A)) {
             Programm_Galerie_2 += -1
         }
-        if (input.buttonIsPressed(Button.A)) {
+        if (input.buttonIsPressed(Button.B)) {
             Programm_Galerie_2 += 1
         }
     }
@@ -259,13 +259,13 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
-    if (Programm_Galerie_1 == 1 && Programm_Galerie_2 == 1) {
+    if (Programm_Galerie_2 == 1) {
         basic.showIcon(IconNames.Heart)
     }
-    if (Programm_Galerie_1 == 1 && Programm_Galerie_2 == 2) {
+    if (Programm_Galerie_2 == 2) {
         basic.showIcon(IconNames.Happy)
     }
-    if (Programm_Galerie_1 == 1 && Programm_Galerie_2 == 3) {
+    if (Programm_Galerie_2 == 3) {
         basic.showIcon(IconNames.Sad)
     }
     if (Programm_Galerie_1 == 1 && Programm_Galerie_2 == 4) {
