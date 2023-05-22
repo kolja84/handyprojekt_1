@@ -17,6 +17,8 @@ radio.onReceivedString(function (receivedString) {
 })
 let Programm_Nachrichten_msg_2 = 0
 let Programm_Musik_Song = 0
+let Programm_Tascheenrechner_Auswahl_Zahl_2 = 0
+let Programm_Taschenrechner_Auswahl_Zahl_1 = 0
 let Programm_Nachrichten_msg_1 = 0
 let Programm_Nachrichten_Kanal_1 = 0
 let Programm_Zufallszahl_MaximaleZahl = 0
@@ -28,6 +30,7 @@ let Programm_Galerie_1 = 0
 let Programm_Zufallszahlengenartor_1 = 0
 let Programm_Musik = 0
 let Programm_Taschenrechner = 0
+let Taschenrechner_Zahl_1 = 0
 let Messenger_Variable_1 = 0
 basic.setLedColor(0xff0000)
 basic.showLeds(`
@@ -84,6 +87,7 @@ basic.forever(function () {
             `)
         if (pins.digitalReadPin(DigitalPin.P1) == 1) {
             Homescreen_1 = 0
+            Taschenrechner_Zahl_1 = 1
             Programm_Taschenrechner = 1
         }
         if (input.buttonIsPressed(Button.A)) {
@@ -226,17 +230,6 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
-    if (Programm_Taschenrechner == 1) {
-        basic.showLeds(`
-            . . . . .
-            . . . . .
-            # # # # #
-            . . . . .
-            . . . . .
-            `)
-    }
-})
-basic.forever(function () {
     if (Programm_Galerie_1 == 1) {
         if (input.buttonIsPressed(Button.A)) {
             Programm_Galerie_2 += -1
@@ -268,13 +261,13 @@ basic.forever(function () {
     if (Programm_Galerie_2 == 3) {
         basic.showIcon(IconNames.Sad)
     }
-    if (Programm_Galerie_1 == 1 && Programm_Galerie_2 == 4) {
+    if (Programm_Galerie_2 == 4) {
         basic.showIcon(IconNames.Confused)
     }
-    if (Programm_Galerie_1 == 1 && Programm_Galerie_2 == 5) {
+    if (Programm_Galerie_2 == 5) {
         basic.showIcon(IconNames.Angry)
     }
-    if (Programm_Galerie_1 == 1 && Programm_Galerie_2 == 6) {
+    if (Programm_Galerie_2 == 6) {
         basic.showIcon(IconNames.Asleep)
     }
     if (Programm_Galerie_1 == 1 && Programm_Galerie_2 == 7) {
@@ -294,6 +287,31 @@ basic.forever(function () {
     }
     if (Programm_Galerie_1 == 1 && Programm_Galerie_2 == 11) {
         basic.showIcon(IconNames.Rollerskate)
+    }
+})
+basic.forever(function () {
+    if (Programm_Taschenrechner == 1) {
+        if (Taschenrechner_Zahl_1 == 1) {
+            Programm_Taschenrechner_Auswahl_Zahl_1 = pins.analogReadPin(AnalogPin.P2)
+            basic.showNumber(Programm_Taschenrechner_Auswahl_Zahl_1)
+            if (pins.digitalReadPin(DigitalPin.P1) == 1) {
+                Taschenrechner_Zahl_1 = 2
+            }
+        }
+        if (Taschenrechner_Zahl_1 == 2) {
+            Programm_Tascheenrechner_Auswahl_Zahl_2 = pins.analogReadPin(AnalogPin.P2)
+            basic.showNumber(Programm_Tascheenrechner_Auswahl_Zahl_2)
+            if (pins.digitalReadPin(DigitalPin.P1) == 1) {
+                Taschenrechner_Zahl_1 = 3
+            }
+        }
+        if (Taschenrechner_Zahl_1 == 3) {
+            basic.showNumber(Programm_Taschenrechner_Auswahl_Zahl_1 + Programm_Tascheenrechner_Auswahl_Zahl_2)
+            Taschenrechner_Zahl_1 = 1
+        }
+        if (input.buttonIsPressed(Button.AB)) {
+            Taschenrechner_Zahl_1 = 0
+        }
     }
 })
 basic.forever(function () {
