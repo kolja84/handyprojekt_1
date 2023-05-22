@@ -19,10 +19,10 @@ let Programm_Nachrichten_msg_2 = 0
 let Programm_Musik_Song = 0
 let Programm_Tascheenrechner_Auswahl_Zahl_2 = 0
 let Programm_Taschenrechner_Auswahl_Zahl_1 = 0
-let Programm_Nachrichten_msg_1 = 0
-let Programm_Nachrichten_Kanal_1 = 0
 let Programm_Zufallszahl_MaximaleZahl = 0
 let Programm_MusikPlay_Pause = 0
+let Programm_Nachrichten_msg_1 = 0
+let Programm_Nachrichten_Kanal_1 = 0
 let Programm_Nachrichten_Kanal_2 = 0
 let Standby = 0
 let Programm_Galerie_2 = 0
@@ -31,6 +31,7 @@ let Programm_Zufallszahlengenartor_1 = 0
 let Programm_Musik = 0
 let Programm_Taschenrechner = 0
 let Taschenrechner_Zahl_1 = 0
+let Programm_Nachrichten_NachrichtenKanal_Auswahl = 0
 let Messenger_Variable_1 = 0
 basic.setLedColor(0xff0000)
 basic.showLeds(`
@@ -70,6 +71,7 @@ basic.forever(function () {
         if (pins.digitalReadPin(DigitalPin.P1) == 1) {
             Homescreen_1 = 0
             Messenger_Variable_1 = 1
+            Programm_Nachrichten_NachrichtenKanal_Auswahl = 1
         }
         if (input.buttonIsPressed(Button.B)) {
             Homescreen_1 += 1
@@ -196,6 +198,21 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
+    if (Messenger_Variable_1 == 1 && Programm_Nachrichten_NachrichtenKanal_Auswahl == 1) {
+        Programm_Nachrichten_Kanal_1 = Math.map(pins.analogReadPin(AnalogPin.P2), 0, 1023, 0, 4)
+        Programm_Nachrichten_Kanal_2 = Math.round(Programm_Nachrichten_Kanal_1)
+        basic.showNumber(Programm_Nachrichten_Kanal_2)
+        if (pins.digitalReadPin(DigitalPin.P1) == 1) {
+            Programm_Nachrichten_NachrichtenKanal_Auswahl = 2
+        }
+    }
+    if (Programm_Nachrichten_NachrichtenKanal_Auswahl == 2) {
+        Programm_Nachrichten_msg_1 = 1
+        radio.setGroup(Programm_Nachrichten_Kanal_2)
+        basic.pause(300)
+    }
+})
+basic.forever(function () {
     if (Programm_Musik == 1) {
         if (Programm_MusikPlay_Pause == 0) {
             basic.showLeds(`
@@ -240,18 +257,6 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
-    if (Messenger_Variable_1 == 1 && !(input.buttonIsPressed(Button.A))) {
-        Programm_Nachrichten_Kanal_1 = Math.map(pins.analogReadPin(AnalogPin.P2), 0, 1023, 0, 4)
-        Programm_Nachrichten_Kanal_2 = Math.round(Programm_Nachrichten_Kanal_1)
-        basic.showNumber(Programm_Nachrichten_Kanal_2)
-    }
-    if (!(input.buttonIsPressed(Button.A))) {
-        Programm_Nachrichten_msg_1 = 0
-        radio.setGroup(Programm_Nachrichten_Kanal_2)
-        basic.pause(300)
-    }
-})
-basic.forever(function () {
     if (Programm_Galerie_2 == 1) {
         basic.showIcon(IconNames.Heart)
     }
@@ -282,11 +287,6 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
-    if (Programm_Galerie_2 == 2) {
-        basic.showIcon(IconNames.Happy)
-    }
-})
-basic.forever(function () {
     if (Messenger_Variable_1 == 1) {
         if (Programm_Nachrichten_msg_1 == 1) {
             basic.showString("Hallo")
@@ -312,6 +312,11 @@ basic.forever(function () {
                 radio.sendMessage(RadioMessage.Nein)
             }
         }
+    }
+})
+basic.forever(function () {
+    if (Programm_Galerie_2 == 2) {
+        basic.showIcon(IconNames.Happy)
     }
 })
 basic.forever(function () {
