@@ -255,39 +255,6 @@ basic.forever(function () {
     if (Programm_Galerie_2 == 1) {
         basic.showIcon(IconNames.Heart)
     }
-    if (Programm_Galerie_2 == 2) {
-        basic.showIcon(IconNames.Happy)
-    }
-    if (Programm_Galerie_2 == 3) {
-        basic.showIcon(IconNames.Sad)
-    }
-    if (Programm_Galerie_2 == 4) {
-        basic.showIcon(IconNames.Confused)
-    }
-    if (Programm_Galerie_2 == 5) {
-        basic.showIcon(IconNames.Angry)
-    }
-    if (Programm_Galerie_2 == 6) {
-        basic.showIcon(IconNames.Asleep)
-    }
-    if (Programm_Galerie_1 == 1 && Programm_Galerie_2 == 7) {
-        basic.showIcon(IconNames.Surprised)
-    }
-    if (Programm_Galerie_1 == 1 && Programm_Galerie_2 == 8) {
-        basic.showIcon(IconNames.Silly)
-    }
-    if (Programm_Galerie_1 == 1 && Programm_Galerie_2 == 8) {
-        basic.showIcon(IconNames.Fabulous)
-    }
-    if (Programm_Galerie_1 == 1 && Programm_Galerie_2 == 9) {
-        basic.showIcon(IconNames.TShirt)
-    }
-    if (Programm_Galerie_1 == 1 && Programm_Galerie_2 == 10) {
-        basic.showIcon(IconNames.Rollerskate)
-    }
-    if (Programm_Galerie_1 == 1 && Programm_Galerie_2 == 11) {
-        basic.showIcon(IconNames.Rollerskate)
-    }
 })
 basic.forever(function () {
     if (Programm_Taschenrechner == 1) {
@@ -312,6 +279,11 @@ basic.forever(function () {
         if (input.buttonIsPressed(Button.AB)) {
             Taschenrechner_Zahl_1 = 0
         }
+    }
+})
+basic.forever(function () {
+    if (Programm_Galerie_2 == 2) {
+        basic.showIcon(IconNames.Happy)
     }
 })
 basic.forever(function () {
@@ -367,9 +339,59 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
+    if (Programm_Galerie_2 == 3) {
+        basic.showIcon(IconNames.Sad)
+    }
+})
+basic.forever(function () {
+    if (Programm_Galerie_2 == 4) {
+        basic.showIcon(IconNames.Confused)
+    }
+})
+basic.forever(function () {
+    if (Programm_Galerie_2 == 5) {
+        basic.showIcon(IconNames.Angry)
+    }
+})
+basic.forever(function () {
+    if (Programm_Galerie_2 == 6) {
+        basic.showIcon(IconNames.Asleep)
+    }
+})
+basic.forever(function () {
     basic.pause(250)
     if (input.buttonIsPressed(Button.A)) {
         Programm_Nachrichten_msg_2 = Math.map(pins.analogReadPin(AnalogPin.P2), 0, 1023, 0, 4)
         Programm_Nachrichten_msg_1 = Math.round(Programm_Nachrichten_msg_2)
+    }
+})
+basic.forever(function () {
+    if (Programm_Galerie_2 == 7) {
+        basic.showIcon(IconNames.Surprised)
+    }
+})
+basic.forever(function () {
+    if (Programm_Galerie_2 == 8) {
+        basic.showIcon(IconNames.Silly)
+    }
+})
+basic.forever(function () {
+    if (Programm_Galerie_2 == 9) {
+        basic.showIcon(IconNames.TShirt)
+    }
+})
+basic.forever(function () {
+    if (Programm_Galerie_2 == 10) {
+        basic.showIcon(IconNames.Rollerskate)
+    }
+})
+basic.forever(function () {
+    if (Programm_Galerie_2 == 11) {
+        basic.showIcon(IconNames.Rollerskate)
+    }
+})
+basic.forever(function () {
+    if (Programm_Galerie_2 == 12) {
+        basic.showIcon(IconNames.Fabulous)
     }
 })
