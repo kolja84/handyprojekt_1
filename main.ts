@@ -11,6 +11,7 @@ input.onPinTouchEvent(TouchPin.P1, input.buttonEventDown(), function () {
 radio.onReceivedString(function (receivedString) {
     basic.showString(receivedString)
 })
+let Timer_Zeit = 0
 let Programm_Zufallszahl_MaximaleZahl = 0
 let Programm_Tascheenrechner_Auswahl_Zahl_2 = 0
 let Programm_Taschenrechner_Lampe = 0
@@ -383,30 +384,20 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
-    if (Programm_Timer_1 == 1) {
-        for (let index = 0; index < 1; index++) {
-            basic.showLeds(`
-                # . . . #
-                # # . # #
-                # # # # #
-                # # . # #
-                # . . . #
-                `)
-            basic.showLeds(`
-                # # # # #
-                . # # # .
-                . . # . .
-                . # # # .
-                # # # # #
-                `)
+    if (Programm_Timer_1 == 1 && Timer_Zeit == 0) {
+        basic.showNumber(pins.analogReadPin(AnalogPin.P2))
+        if (pins.digitalReadPin(DigitalPin.P1) == 1) {
+            basic.setLedColor(0x00ff00)
+            Timer_Zeit = pins.analogReadPin(AnalogPin.P2) * 100
         }
-        basic.showLeds(`
-            # # # # #
-            . # # # .
-            . . # . .
-            . # # # .
-            # # # # #
-            `)
+        if (Timer_Zeit != 0) {
+            basic.pause(Timer_Zeit)
+            basic.setLedColor(0xff0000)
+            music.playTone(175, music.beat(BeatFraction.Whole))
+            music.playTone(220, music.beat(BeatFraction.Whole))
+            music.playTone(175, music.beat(BeatFraction.Whole))
+            music.playTone(220, music.beat(BeatFraction.Whole))
+        }
     }
 })
 basic.forever(function () {
