@@ -19,6 +19,7 @@ let Programm_Musik_Song = 0
 let Programm_Musik_1 = 0
 let Programm_MusikPlay_Pause = 0
 let Standby = 0
+let Programm_Timer_1 = 0
 let Programm_Ventilator = 0
 let Programm_Zufallszahlengenartor_1 = 0
 let Programm_Musik = 0
@@ -54,6 +55,20 @@ basic.showLeds(`
     `)
 let Homescreen_1 = 1
 basic.turnRgbLedOff()
+basic.forever(function () {
+    if (Homescreen_1 > 7) {
+        basic.showLeds(`
+            . . # . .
+            . . # . .
+            . . # . .
+            . . . . .
+            . . # . .
+            `)
+        if (input.buttonIsPressed(Button.A)) {
+            Homescreen_1 += -1
+        }
+    }
+})
 basic.forever(function () {
     if (Homescreen_1 == 1) {
         basic.showLeds(`
@@ -184,7 +199,7 @@ basic.forever(function () {
             `)
         if (pins.digitalReadPin(DigitalPin.P1) == 1) {
             Homescreen_1 = 0
-            Programm_Ventilator = 1
+            Programm_Timer_1 = 1
         }
         if (input.buttonIsPressed(Button.A)) {
             Homescreen_1 += -1
@@ -329,22 +344,23 @@ basic.forever(function () {
     if (Programm_Ventilator == 1) {
         if (pins.digitalReadPin(DigitalPin.P1) == 1) {
             pins.digitalWritePin(DigitalPin.P0, 1)
-            basic.showLeds(`
-                . . . # .
-                # . # . .
-                . # # # .
-                . . # . #
-                . # . . .
-                `)
-            basic.showLeds(`
-                . # . . .
-                . . # . #
-                . # # # .
-                # . # . .
-                . . . # .
-                `)
             basic.setLedColor(0x00ff00)
+            basic.showLeds(`
+                . . . # .
+                # . # . .
+                . # # # .
+                . . # . #
+                . # . . .
+                `)
+            basic.showLeds(`
+                . # . . .
+                . . # . #
+                . # # # .
+                # . # . .
+                . . . # .
+                `)
         } else {
+            pins.digitalWritePin(DigitalPin.P0, 0)
             basic.showLeds(`
                 . . # . .
                 # . # . #
@@ -364,6 +380,33 @@ basic.forever(function () {
         if (input.buttonIsPressed(Button.B)) {
             Programm_Galerie_2 += 1
         }
+    }
+})
+basic.forever(function () {
+    if (Programm_Timer_1 == 1) {
+        for (let index = 0; index < 1; index++) {
+            basic.showLeds(`
+                # . . . #
+                # # . # #
+                # # # # #
+                # # . # #
+                # . . . #
+                `)
+            basic.showLeds(`
+                # # # # #
+                . # # # .
+                . . # . .
+                . # # # .
+                # # # # #
+                `)
+        }
+        basic.showLeds(`
+            # # # # #
+            . # # # .
+            . . # . .
+            . # # # .
+            # # # # #
+            `)
     }
 })
 basic.forever(function () {
