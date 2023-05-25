@@ -11,6 +11,8 @@ radio.onReceivedString(function (receivedString) {
         basic.showString(receivedString)
     }
 })
+let Nachricht = 0
+let Programm_Nachrichten_Nachricht = 0
 let Timer_Zeit = 0
 let Programm_Zufallszahl_MaximaleZahl = 0
 let Programm_Tascheenrechner_Auswahl_Zahl_2 = 0
@@ -252,42 +254,7 @@ basic.forever(function () {
 })
 basic.forever(function () {
     if (Messenger_Variable_1 == 1) {
-        radio.setGroup(1)
-        basic.showLeds(`
-            . . . . .
-            . . . . .
-            # . # . #
-            . . . . .
-            . . . . .
-            `)
-        basic.showLeds(`
-            . . . . .
-            # . . . .
-            . . # . #
-            . . . . .
-            . . . . .
-            `)
-        basic.showLeds(`
-            . . . . .
-            . . # . .
-            # . . . #
-            . . . . .
-            . . . . .
-            `)
-        basic.showLeds(`
-            . . . . .
-            . . . . #
-            # . # . .
-            . . . . .
-            . . . . .
-            `)
-        basic.showLeds(`
-            . . . . .
-            . . . . .
-            # . # . #
-            . . . . .
-            . . . . .
-            `)
+    	
     }
 })
 basic.forever(function () {
@@ -451,14 +418,6 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
-    if (Messenger_Variable_1 == 1) {
-        if (pins.digitalReadPin(DigitalPin.P1) == 1) {
-            radio.sendString("Hi")
-            control.waitMicros(484)
-        }
-    }
-})
-basic.forever(function () {
     if (Programm_Taschenrechner_Lampe == 1) {
         basic.setLedColor(0x00ff00)
         basic.pause(100)
@@ -474,6 +433,86 @@ basic.forever(function () {
 basic.forever(function () {
     if (Programm_Galerie_2 == 8) {
         basic.showIcon(IconNames.Silly)
+    }
+})
+basic.forever(function () {
+    if (Messenger_Variable_1 == 1) {
+        radio.setGroup(1)
+        Programm_Nachrichten_Nachricht = Math.map(pins.analogReadPin(AnalogPin.P2), 0, 1023, 0, 4)
+        Nachricht = Math.round(Programm_Nachrichten_Nachricht)
+        if (Nachricht == 0) {
+            basic.showLeds(`
+                . . . . .
+                . . . . .
+                # . # . #
+                . . . . .
+                . . . . .
+                `)
+            basic.showLeds(`
+                . . . . .
+                # . . . .
+                . . # . #
+                . . . . .
+                . . . . .
+                `)
+            basic.showLeds(`
+                . . . . .
+                . . # . .
+                # . . . #
+                . . . . .
+                . . . . .
+                `)
+            basic.showLeds(`
+                . . . . .
+                . . . . #
+                # . # . .
+                . . . . .
+                . . . . .
+                `)
+            basic.showLeds(`
+                . . . . .
+                . . . . .
+                # . # . #
+                . . . . .
+                . . . . .
+                `)
+        }
+        if (Nachricht == 1) {
+            basic.showString("hi")
+            if (pins.digitalReadPin(DigitalPin.P1) == 1) {
+                radio.sendString("Hi")
+                basic.setLedColor(0x00ff00)
+                music.playTone(175, music.beat(BeatFraction.Whole))
+                basic.turnRgbLedOff()
+            }
+        }
+        if (Nachricht == 2) {
+            basic.showString("wie geht es?")
+            if (pins.digitalReadPin(DigitalPin.P1) == 1) {
+                radio.sendString("Wie geht es?")
+                basic.setLedColor(0x00ff00)
+                music.playTone(175, music.beat(BeatFraction.Whole))
+                basic.turnRgbLedOff()
+            }
+        }
+        if (Nachricht == 3) {
+            basic.showString("Gut")
+            if (pins.digitalReadPin(DigitalPin.P1) == 1) {
+                radio.sendString("Gut")
+                basic.setLedColor(0x00ff00)
+                music.playTone(175, music.beat(BeatFraction.Whole))
+                basic.turnRgbLedOff()
+            }
+        }
+        if (Nachricht == 4) {
+            basic.showString("Schlecht")
+            if (pins.digitalReadPin(DigitalPin.P1) == 1) {
+                radio.sendString("Hi")
+                basic.setLedColor(0x00ff00)
+                music.playTone(175, music.beat(BeatFraction.Whole))
+                basic.turnRgbLedOff()
+            }
+        }
     }
 })
 basic.forever(function () {
