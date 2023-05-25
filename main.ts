@@ -66,24 +66,6 @@ basic.showLeds(`
 let Homescreen_1 = 1
 basic.turnRgbLedOff()
 basic.forever(function () {
-    if (Homescreen_1 > 10) {
-        basic.showLeds(`
-            . . # . .
-            . . # . .
-            . . # . .
-            . . . . .
-            . . # . .
-            `)
-        if (input.buttonIsPressed(Button.A)) {
-            Homescreen_1 += -1
-        }
-        if (pins.digitalReadPin(DigitalPin.P1) == 1) {
-            basic.showString("Seriennummer:")
-            basic.showNumber(control.deviceSerialNumber())
-        }
-    }
-})
-basic.forever(function () {
     if (Homescreen_1 == 1) {
         basic.showLeds(`
             # # # # #
@@ -263,6 +245,24 @@ basic.forever(function () {
         }
         if (input.buttonIsPressed(Button.B)) {
             Homescreen_1 += 1
+        }
+    }
+})
+basic.forever(function () {
+    if (Homescreen_1 > 9) {
+        basic.showLeds(`
+            . . # . .
+            . . # . .
+            . . # . .
+            . . . . .
+            . . # . .
+            `)
+        if (input.buttonIsPressed(Button.A)) {
+            Homescreen_1 += -1
+        }
+        if (pins.digitalReadPin(DigitalPin.P1) == 1) {
+            basic.showString("Seriennummer:")
+            basic.showNumber(control.deviceSerialNumber())
         }
     }
 })
