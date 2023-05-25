@@ -27,6 +27,7 @@ let Programm_Musik_Song = 0
 let Programm_Musik_1 = 0
 let Programm_MusikPlay_Pause = 0
 let Standby = 0
+let Programm_Temperatur_messer = 0
 let Programm_Reaktion = 0
 let Programm_Timer_1 = 0
 let Programm_Ventilator = 0
@@ -65,7 +66,7 @@ basic.showLeds(`
 let Homescreen_1 = 1
 basic.turnRgbLedOff()
 basic.forever(function () {
-    if (Homescreen_1 > 8) {
+    if (Homescreen_1 > 10) {
         basic.showLeds(`
             . . # . .
             . . # . .
@@ -245,6 +246,27 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
+    if (Homescreen_1 == 9) {
+        basic.showLeds(`
+            . . . . #
+            . # # # .
+            . # . # .
+            . # # # .
+            . . . . .
+            `)
+        if (pins.digitalReadPin(DigitalPin.P1) == 1) {
+            Homescreen_1 = 0
+            Programm_Temperatur_messer = 1
+        }
+        if (input.buttonIsPressed(Button.A)) {
+            Homescreen_1 += -1
+        }
+        if (input.buttonIsPressed(Button.B)) {
+            Homescreen_1 += 1
+        }
+    }
+})
+basic.forever(function () {
     if (input.buttonIsPressed(Button.AB) && Homescreen_1 == 0) {
         music.playTone(147, music.beat(BeatFraction.Whole))
         Messenger_Variable_1 = 0
@@ -255,6 +277,7 @@ basic.forever(function () {
         Homescreen_1 = 1
         Programm_Galerie_2 = 0
         Programm_Reaktion = 0
+        Programm_Temperatur_messer = 0
     }
     if (Homescreen_1 > 0) {
         Messenger_Variable_1 = 0
@@ -411,6 +434,11 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
+    if (Programm_Temperatur_messer == 1) {
+        basic.showNumber(input.temperature())
+    }
+})
+basic.forever(function () {
     if (Messenger_Variable_1 == 1) {
         radio.setGroup(1)
         Programm_Nachrichten_Nachricht = Math.map(pins.analogReadPin(AnalogPin.P2), 0, 1023, 0, 4)
@@ -491,6 +519,22 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
+    if (Programm_Temperatur_messer == 1) {
+        if (input.temperature() > 0 && input.temperature() < 20) {
+            basic.setLedColor(0x00ff00)
+        }
+        if (input.temperature() < 0) {
+            basic.setLedColor(0x007fff)
+        }
+        if (input.temperature() > 20 && input.temperature() < 30) {
+            basic.setLedColor(0xff8000)
+        }
+        if (input.temperature() > 30) {
+            basic.setLedColor(0xff0000)
+        }
+    }
+})
+basic.forever(function () {
     if (Programm_Galerie_2 == 12) {
         basic.showIcon(IconNames.Fabulous)
     }
@@ -531,6 +575,11 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
+    if (Programm_Galerie_2 == 7) {
+        basic.showIcon(IconNames.Surprised)
+    }
+})
+basic.forever(function () {
     if (Programm_Musik == 1) {
         if (Programm_MusikPlay_Pause == 0) {
             basic.showLeds(`
@@ -556,11 +605,6 @@ basic.forever(function () {
                 music.stopAllSounds()
             }
         }
-    }
-})
-basic.forever(function () {
-    if (Programm_Galerie_2 == 7) {
-        basic.showIcon(IconNames.Surprised)
     }
 })
 basic.forever(function () {
