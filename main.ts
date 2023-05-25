@@ -7,8 +7,8 @@ enum RadioMessage {
 }
 radio.onReceivedString(function (receivedString) {
     if (Messenger_Variable_1 == 1) {
-        basic.showString(receivedString)
         music.playMelody("D - A E - - - - ", 120)
+        basic.showString(receivedString)
     }
 })
 let Timer_Zeit = 0
@@ -454,6 +454,7 @@ basic.forever(function () {
     if (Messenger_Variable_1 == 1) {
         if (pins.digitalReadPin(DigitalPin.P1) == 1) {
             radio.sendString("Hi")
+            control.waitMicros(484)
         }
     }
 })
