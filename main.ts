@@ -5,11 +5,11 @@ enum RadioMessage {
     Ja = 47166,
     message1 = 49434
 }
-input.onPinTouchEvent(TouchPin.P1, input.buttonEventDown(), function () {
-    music.playTone(659, music.beat(BeatFraction.Whole))
-})
 radio.onReceivedString(function (receivedString) {
-    basic.showString(receivedString)
+    if (Messenger_Variable_1 == 1) {
+        basic.showString(receivedString)
+        music.playMelody("D - A E - - - - ", 120)
+    }
 })
 let Timer_Zeit = 0
 let Programm_Zufallszahl_MaximaleZahl = 0
@@ -68,6 +68,10 @@ basic.forever(function () {
         if (input.buttonIsPressed(Button.A)) {
             Homescreen_1 += -1
         }
+        if (pins.digitalReadPin(DigitalPin.P1) == 1) {
+            basic.showString("Seriennummer:")
+            basic.showNumber(control.deviceSerialNumber())
+        }
     }
 })
 basic.forever(function () {
@@ -80,6 +84,7 @@ basic.forever(function () {
             . . # . .
             `)
         if (pins.digitalReadPin(DigitalPin.P1) == 1) {
+            radio.setGroup(1)
             Homescreen_1 = 0
             Messenger_Variable_1 = 1
         }
@@ -219,12 +224,14 @@ basic.forever(function () {
         Programm_Zufallszahlengenartor_1 = 0
         Programm_Galerie_1 = 0
         Homescreen_1 = 1
+        Programm_Galerie_2 = 0
     }
     if (Homescreen_1 > 0) {
         Messenger_Variable_1 = 0
         Programm_Musik = 0
         Programm_Taschenrechner = 0
         Programm_Zufallszahlengenartor_1 = 0
+        Programm_Galerie_2 = 0
         basic.turnRgbLedOff()
         if (input.buttonIsPressed(Button.AB)) {
             basic.setLedColor(0xff0000)
@@ -444,6 +451,13 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
+    if (Messenger_Variable_1 == 1) {
+        if (pins.digitalReadPin(DigitalPin.P1) == 1) {
+            radio.sendString("Hi")
+        }
+    }
+})
+basic.forever(function () {
     if (Programm_Taschenrechner_Lampe == 1) {
         basic.setLedColor(0x00ff00)
         basic.pause(100)
@@ -454,11 +468,6 @@ basic.forever(function () {
 basic.forever(function () {
     if (Programm_Galerie_2 == 7) {
         basic.showIcon(IconNames.Surprised)
-    }
-})
-basic.forever(function () {
-    if (input.isGesture(Gesture.Shake)) {
-        radio.sendString("Hi")
     }
 })
 basic.forever(function () {
