@@ -278,6 +278,8 @@ basic.forever(function () {
         Programm_Galerie_2 = 0
         Programm_Reaktion = 0
         Programm_Temperatur_messer = 0
+        Programm_Ventilator = 0
+        Programm_Timer_1 = 0
     }
     if (Homescreen_1 > 0) {
         Messenger_Variable_1 = 0
@@ -510,7 +512,7 @@ basic.forever(function () {
         if (Nachricht == 4) {
             basic.showString("Schlecht")
             if (pins.digitalReadPin(DigitalPin.P1) == 1) {
-                radio.sendString("Hi")
+                radio.sendString("schlecht")
                 basic.setLedColor(0x00ff00)
                 music.playTone(175, music.beat(BeatFraction.Whole))
                 basic.turnRgbLedOff()
