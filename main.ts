@@ -424,6 +424,11 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
+    if (Programm_Temperatur_messer == 1) {
+        basic.showNumber(input.temperature())
+    }
+})
+basic.forever(function () {
     if (Programm_Reaktion == 1) {
         basic.showLeds(`
             . . . . .
@@ -433,11 +438,6 @@ basic.forever(function () {
             . . . . .
             `)
         Programm_Reaktion = 2
-    }
-})
-basic.forever(function () {
-    if (Programm_Temperatur_messer == 1) {
-        basic.showNumber(input.temperature())
     }
 })
 basic.forever(function () {
