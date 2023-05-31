@@ -644,3 +644,8 @@ basic.forever(function () {
         basic.showIcon(IconNames.Happy)
     }
 })
+basic.forever(function () {
+    if (Programm_Galerie_2 == 1) {
+        basic.showIcon(IconNames.Heart)
+    }
+})
