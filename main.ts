@@ -14,8 +14,6 @@ radio.onReceivedString(function (receivedString) {
         music.playMelody("D - A E - - - - ", 120)
     }
 })
-let Programm_Reaktion_Zufallszahl_1 = 0
-let Programm_Reaktion_Zufallszeit = 0
 let Nachricht = 0
 let Programm_Nachrichten_Nachricht = 0
 let Timer_Zeit = 0
@@ -27,8 +25,8 @@ let Programm_Musik_Song = 0
 let Programm_Musik_1 = 0
 let Programm_MusikPlay_Pause = 0
 let Standby = 0
-let Programm_Temperatur_messer = 0
 let Programm_Reaktion = 0
+let Programm_Temperatur_messer = 0
 let Programm_Timer_1 = 0
 let Programm_Ventilator = 0
 let Programm_Zufallszahlengenartor_1 = 0
@@ -197,27 +195,6 @@ basic.forever(function () {
         if (pins.digitalReadPin(DigitalPin.P1) == 1) {
             Homescreen_1 = 0
             Programm_Timer_1 = 1
-        }
-        if (input.buttonIsPressed(Button.A)) {
-            Homescreen_1 += -1
-        }
-        if (input.buttonIsPressed(Button.B)) {
-            Homescreen_1 += 1
-        }
-    }
-})
-basic.forever(function () {
-    if (Homescreen_1 == 8) {
-        basic.showLeds(`
-            . # # # .
-            . . . . .
-            . # # # .
-            . . . . .
-            . # # # .
-            `)
-        if (pins.digitalReadPin(DigitalPin.P1) == 1) {
-            Homescreen_1 = 0
-            Programm_Reaktion = 1
         }
         if (input.buttonIsPressed(Button.A)) {
             Homescreen_1 += -1
@@ -424,18 +401,6 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
-    if (Programm_Reaktion == 1) {
-        basic.showLeds(`
-            . . . . .
-            . . . . .
-            . . # . .
-            . . . . .
-            . . . . .
-            `)
-        Programm_Reaktion = 2
-    }
-})
-basic.forever(function () {
     if (Programm_Temperatur_messer == 1) {
         basic.showNumber(input.temperature())
     }
@@ -539,23 +504,6 @@ basic.forever(function () {
 basic.forever(function () {
     if (Programm_Galerie_2 == 12) {
         basic.showIcon(IconNames.Fabulous)
-    }
-})
-basic.forever(function () {
-    if (Programm_Reaktion == 2) {
-        Programm_Reaktion_Zufallszeit = randint(0, 200)
-        Programm_Reaktion_Zufallszahl_1 = Programm_Reaktion_Zufallszeit * 70
-        basic.pause(Programm_Reaktion_Zufallszahl_1)
-        basic.showLeds(`
-            # # # # #
-            # # # # #
-            # # # # #
-            # # # # #
-            # # # # #
-            `)
-        if (pins.digitalReadPin(DigitalPin.P1) == 1) {
-            Programm_Reaktion = 1
-        }
     }
 })
 basic.forever(function () {
