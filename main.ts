@@ -204,7 +204,7 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
-    if (Homescreen_1 == 9) {
+    if (Homescreen_1 == 8) {
         basic.showLeds(`
             . . . . #
             . # # # .
@@ -225,7 +225,7 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
-    if (Homescreen_1 > 9) {
+    if (Homescreen_1 > 8) {
         basic.showLeds(`
             . . # . .
             . . # . .
